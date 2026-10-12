@@ -1,0 +1,23 @@
+{
+  "queryId": "einkommen-1710",
+  "kind": "truth",
+  "literal": {
+    "kind": "literal",
+    "polarity": "positive",
+    "predicate": "urn:de:social:clir:wohngeld#monatliches_gesamteinkommen",
+    "args": [
+      {
+        "kind": "entity_ref",
+        "id": "urn:de:example:wohngeld:familie-weimar:haushalt"
+      },
+      {
+        "kind": "value",
+        "type": {
+          "name": "urn:law:std#Money"
+        },
+        "value": "1710.00",
+        "currency": "EUR"
+      }
+    ]
+  }
+}

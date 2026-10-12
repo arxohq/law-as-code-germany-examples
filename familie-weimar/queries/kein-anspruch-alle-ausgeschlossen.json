@@ -1,0 +1,19 @@
+{
+  "queryId": "kein-anspruch-alle-ausgeschlossen",
+  "kind": "truth",
+  "literal": {
+    "kind": "literal",
+    "polarity": "positive",
+    "predicate": "urn:de:social:clir:wohngeld#kein_wohngeldanspruch",
+    "args": [
+      {
+        "kind": "entity_ref",
+        "id": "urn:de:example:wohngeld:familie-weimar:haushalt"
+      },
+      {
+        "kind": "const_ref",
+        "id": "urn:de:social:clir:wohngeld#ALLE_AUSGESCHLOSSEN_21_NR2"
+      }
+    ]
+  }
+}

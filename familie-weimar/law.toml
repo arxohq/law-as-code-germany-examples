@@ -1,0 +1,35 @@
+# Учебные дела над каноном набора B «Доход и жильё семьи → Wohngeld»; нормы
+# остаются у владельцев: `de.social.wohngeld` и его импорты
+# `de.social.wohngeld_verordnung`, `de.tax.income_for_wohngeld`.
+[package]
+name = "examples.de.wohngeld.familie_weimar"
+version = "0.1.0"
+language = "0.2"
+namespace = "urn:law:examples:de:wohngeld:familie-weimar"
+
+[dependencies]
+"de.tax.income_for_wohngeld" = "0.1.0"
+"de.social.wohngeld_verordnung" = "0.1.0"
+"de.social.wohngeld" = "0.1.0"
+
+[[cases]]
+name = "Familie2025"
+path = "cases/familie-2025-01-01.lawcase"
+
+[[cases]]
+name = "Familie20241231"
+path = "cases/familie-2024-12-31.lawcase"
+
+[[cases]]
+name = "FamilieOhneWuerdigung"
+path = "cases/familie-ohne-wuerdigung.lawcase"
+
+[[cases]]
+name = "AlleinGrundsicherung"
+path = "cases/allein-grundsicherung.lawcase"
+
+[metadata]
+act = "de-wohngeld-examples-familie-weimar"
+
+[authoring]
+local_imports = "explicit"

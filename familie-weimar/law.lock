@@ -1,0 +1,92 @@
+{
+  "dependencyEdges": [
+    {
+      "features": [],
+      "from": "de.social.wohngeld",
+      "requested": "0.1.0",
+      "resolved": "0.1.0",
+      "to": "de.social.wohngeld_verordnung"
+    },
+    {
+      "features": [],
+      "from": "de.social.wohngeld",
+      "requested": "0.1.0",
+      "resolved": "0.1.0",
+      "to": "de.tax.income_for_wohngeld"
+    },
+    {
+      "features": [],
+      "from": "examples.de.wohngeld.familie_weimar",
+      "requested": "0.1.0",
+      "resolved": "0.1.0",
+      "to": "de.social.wohngeld"
+    },
+    {
+      "features": [],
+      "from": "examples.de.wohngeld.familie_weimar",
+      "requested": "0.1.0",
+      "resolved": "0.1.0",
+      "to": "de.social.wohngeld_verordnung"
+    },
+    {
+      "features": [],
+      "from": "examples.de.wohngeld.familie_weimar",
+      "requested": "0.1.0",
+      "resolved": "0.1.0",
+      "to": "de.tax.income_for_wohngeld"
+    }
+  ],
+  "languageSemantics": "law.core/0.2.11",
+  "lockVersion": "0.4",
+  "packages": [
+    {
+      "artifactHash": "sha256:e38b660366e3a2cac3c881fd7404fd9942628701785c13963b538208bcc343d9",
+      "features": [
+        "core-executable",
+        "law.params/0.1"
+      ],
+      "name": "de.social.wohngeld",
+      "namespace": "urn:de:social:clir:wohngeld",
+      "questionCatalogHash": "sha256:ab19013b1e3334e95af8393d5677dbde2457d87d289f910e1357cf1354626b0d",
+      "registryId": "arxo",
+      "resolverUri": "registry://arxo/de.social.wohngeld/0.1.0",
+      "sourceHash": "sha256:a01237e98253de0e0ef5092c71aeb3b60cbb9c818d117da9c7bb020cb7688a9f",
+      "version": "0.1.0"
+    },
+    {
+      "artifactHash": "sha256:67b2764b875f7de64186500b47356ee7286a6631bd5770d1c0bf7182dd01835c",
+      "features": [
+        "core-executable"
+      ],
+      "name": "de.social.wohngeld_verordnung",
+      "namespace": "urn:de:social:clir:wohngeld-verordnung",
+      "questionCatalogHash": "sha256:fd16c3dee7601c8b77d5a29135dd96816c8135f6211fcd0aac634b9df5e82ba2",
+      "registryId": "arxo",
+      "resolverUri": "registry://arxo/de.social.wohngeld_verordnung/0.1.0",
+      "sourceHash": "sha256:abc9c484506610077a70cfa2a6f57a1afc3ee5459d086916910d7997924e3513",
+      "version": "0.1.0"
+    },
+    {
+      "artifactHash": "sha256:81b7b8940f7e9e3367dd2b43b5801440cfae5541bd527644ece8c2dafd65e003",
+      "features": [
+        "core-executable",
+        "law.params/0.1"
+      ],
+      "name": "de.tax.income_for_wohngeld",
+      "namespace": "urn:de:tax:clir:income-for-wohngeld",
+      "registryId": "arxo",
+      "resolverUri": "registry://arxo/de.tax.income_for_wohngeld/0.1.0",
+      "sourceHash": "sha256:5810f48c49e153941bfc05bdc42d278760df5906fc831a0b99935d629de8718b",
+      "version": "0.1.0"
+    }
+  ],
+  "resolutionHash": "sha256:65033f8c7d37aab19265c147712f0bbc595f834a06dd992cfb2e046f191852ff",
+  "resources": [],
+  "root": {
+    "artifactHash": "sha256:d1cf198338fde87f919a20a4e788d3aab2f9d4c7c3f490dec89fe8110efa307f",
+    "name": "examples.de.wohngeld.familie_weimar",
+    "namespace": "urn:law:examples:de:wohngeld:familie-weimar",
+    "sourceHash": "sha256:c483cdc81f997afc2ba3c56d95d75f94f497e83b90aeb025300de55aad884bf9",
+    "version": "0.1.0"
+  }
+}

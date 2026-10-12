@@ -1,0 +1,23 @@
+{
+  "queryId": "miete-777-80",
+  "kind": "truth",
+  "literal": {
+    "kind": "literal",
+    "polarity": "positive",
+    "predicate": "urn:de:social:clir:wohngeld#zu_beruecksichtigende_miete",
+    "args": [
+      {
+        "kind": "entity_ref",
+        "id": "urn:de:example:wohngeld:familie-weimar:haushalt"
+      },
+      {
+        "kind": "value",
+        "type": {
+          "name": "urn:law:std#Money"
+        },
+        "value": "777.80",
+        "currency": "EUR"
+      }
+    ]
+  }
+}

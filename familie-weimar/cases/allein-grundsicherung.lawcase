@@ -1,0 +1,27 @@
+language "law.core" version "0.2";
+package examples.de.wohngeld.familie_weimar version "0.1.0";
+namespace "urn:law:examples:de:wohngeld:familie-weimar";
+
+// Одинокое лицо получает трансфер по SGB II (Bürgergeld; с 01.07.2026 — Grundsicherungsgeld) с учётом
+// Kosten der Unterkunft: § 7 Abs. 1 S. 1 Nr. 1 — исключение, § 21 Nr. 2 — права нет.
+case AlleinGrundsicherung {
+    context {
+        legal_time @2025-03-01;
+        knowledge_time @2026-09-15T09:00:00Z;
+        decision_time @2026-09-15T09:00:00Z;
+        timezone "Europe/Berlin";
+    }
+
+    assert "antrag": de.social.wohngeld::wohngeldantrag(entity_ref("urn:de:example:wohngeld:familie-weimar:haushalt"), entity_ref("urn:de:example:wohngeld:familie-weimar:ehefrau"), de.social.wohngeld::MIETZUSCHUSS) { origin case_input; }
+    assert "grundlage": de.social.wohngeld::nutzungsgrundlage(entity_ref("urn:de:example:wohngeld:familie-weimar:haushalt"), entity_ref("urn:de:example:wohngeld:familie-weimar:ehefrau"), de.social.wohngeld::MIETVERHAELTNIS) { origin case_input; }
+    assert "wohnort": de.social.wohngeld::wohnort(entity_ref("urn:de:example:wohngeld:familie-weimar:haushalt"), "Thüringen", "Weimar, Stadt") { origin case_input; }
+    assert "mv": de.social.wohngeld::mietverhaeltnis_des_haushalts(entity_ref("urn:de:example:wohngeld:familie-weimar:haushalt"), entity_ref("urn:de:example:wohngeld:familie-weimar:mietverhaeltnis")) { origin case_input; }
+    assert "entgelt": de.social.wohngeld::vereinbartes_entgelt(entity_ref("urn:de:example:wohngeld:familie-weimar:mietverhaeltnis"), 500.00 EUR) { origin case_input; }
+    assert "bafoeg": de.social.wohngeld::ausbildungsfoerderung_20_abs2(entity_ref("urn:de:example:wohngeld:familie-weimar:haushalt"), de.social.wohngeld::NEIN, de.social.wohngeld::NEIN) { origin case_input; }
+    assert "miete-vollstaendig": de.social.wohngeld::angaben_zur_miete_vollstaendig(entity_ref("urn:de:example:wohngeld:familie-weimar:mietverhaeltnis")) { origin case_input; }
+    assert "freibetraege-vollstaendig": de.social.wohngeld::angaben_freibetraege_vollstaendig(entity_ref("urn:de:example:wohngeld:familie-weimar:haushalt")) { origin case_input; }
+    assert "behoerde-21-nr3": not de.social.wohngeld::missbraeuchliche_inanspruchnahme(entity_ref("urn:de:example:wohngeld:familie-weimar:haushalt")) { origin adjudicated; }
+    assert "ehefrau-lebensmittelpunkt": de.social.wohngeld::lebensmittelpunkt_im_wohnraum(entity_ref("urn:de:example:wohngeld:familie-weimar:haushalt"), entity_ref("urn:de:example:wohngeld:familie-weimar:ehefrau")) { origin case_input; }
+    assert "ehefrau-aufenthalt": de.social.wohngeld::aufenthaltsrechtlicher_status(entity_ref("urn:de:example:wohngeld:familie-weimar:ehefrau"), de.social.wohngeld::KEIN_AUSLAENDER) { origin case_input; }
+    assert "ehefrau-leistung7": de.social.wohngeld::leistungsbezug_7(entity_ref("urn:de:example:wohngeld:familie-weimar:ehefrau"), de.social.wohngeld::NR1_GRUNDSICHERUNGSGELD_SGB2, de.social.wohngeld::JA, de.social.wohngeld::NEIN, de.social.wohngeld::NEIN, de.social.wohngeld::NEIN) { origin case_input; }
+}
