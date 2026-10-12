@@ -5,18 +5,21 @@ The case packages of the book *Law as Code in Practice: German Housing Benefit (
 the legal date and saved questions (`queries/`) of the Vogt family in Weimar, whose numbers are those of the
 BMWSB worked example *Rechenbeispiel 7* (as of 1 January 2025). The rules are not copied here: `law.lock` pins
 the German canons (`de.social.wohngeld`, `de.social.wohngeld_verordnung`, `de.tax.income_for_wohngeld`) by exact
-version and hash in the Arxo registry, and `law install` fetches them.
+version and hash, and `law install` fetches them from the canon repository `arxohq/arxo-wohngeld`.
 
-**Status: private staging.** The canons are published in the private registry `arxohq/registry-staging` with
-the layout of the public Arxo registry. Both repositories become public with the book.
+> **First of all, a demonstration.** These files show what modelling legislation with Arxo can do. They do not
+> claim legal accuracy or completeness, they are not an implementation by or for any German authority, and their
+> answers are not legal advice.
+
+**Status: private staging.** This repository and `arxohq/arxo-wohngeld` become public with the book.
 
 ## Run the example
 
 ```sh
-git clone git@github.com:arxohq/registry-staging.git registry
+git clone git@github.com:arxohq/arxo-wohngeld.git
 git clone git@github.com:arxohq/law-as-code-germany-examples.git examples
 cd examples/familie-weimar
-law install --registry arxo=../../registry
+law install --registry arxo=../../arxo-wohngeld/registry
 law ask . --case Familie2025 --query-json queries/wohngeld-485.json --out "$(mktemp -d)"
 ```
 
@@ -52,7 +55,7 @@ Its questions (`queries/collect-*.json`) collect the value instead of testing on
 
 ```sh
 cd examples/familie-weimar-varianten
-law install --registry arxo=../../registry
+law install --registry arxo=../../arxo-wohngeld/registry
 law ask . --case VMiete850 --query-json queries/collect-w.json --out "$(mktemp -d)"
 ```
 
@@ -69,19 +72,17 @@ law ask . --case VMiete850 --query-json queries/collect-w.json --out "$(mktemp -
 
 ## Chapters 1, 5, 7 and 8: the scenarios of the canon
 
-These chapters also run scenarios of the canon itself (`tests/*.lawtest`). The registry publishes the canon's
-sources with its pinned legal texts and a lock for this registry: copy it out, install, run.
+These chapters also run scenarios of the canon itself (`tests/*.lawtest`). In `arxo-wohngeld` the canon is a
+folder of `packages/` with its dependencies pinned inside it — nothing to install:
 
 ```sh
-cp -R registry/p/de.social.wohngeld/0.1.0/src wohngeld
-cd wohngeld
-law install --registry arxo=../registry
+cd arxo-wohngeld/packages/de.social.wohngeld
 law test . --file tests/bmwsb-2025.lawtest
 ```
 
 In the book's commands, `<canon>` is this folder (`.` once you are inside it). The files the chapters name are
 `bmwsb-2025`, `redaktionen` (Chapters 1, 5, 8), `tatsachen`, `ausschluss-und-urteil` (Chapters 7, 8). On
-12 October 2026 all 87 scenarios of the canon passed from the registry.
+12 October 2026 all 87 scenarios of the canon passed in `arxo-wohngeld` with the released `law` 0.2.2.
 
 ## The saved answers of Chapter 9
 
