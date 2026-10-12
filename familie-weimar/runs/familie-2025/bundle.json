@@ -1,0 +1,38 @@
+{
+  "document": {
+    "digest": "sha256:e5ce59dd0f27c666410c9d247fad47b9ed75a939b052e360cb64fb6fe6790eb4",
+    "file": "result.json",
+    "resultHash": "sha256:35d81b9186e596b8555b651cf69755a3c7d0aa9da4b95520615f32913cd6e19a"
+  },
+  "index": {
+    "digest": "sha256:e6b137b6f85f4a988e57956089dd7a7418867e434770a12fdc8212f0b4790129",
+    "file": "index.json",
+    "inputMode": "reread",
+    "partial": {
+      "reason": "L3: index covers lowering-confirmed calls, terms and local binders; type, field and other-area links are still partial",
+      "value": true
+    }
+  },
+  "inputs": {
+    "program": ".",
+    "worldInputs": "c9dfe4d5fafac0b8f46c60f54d782e3ed6f189b626aa8bcc88d7e4691282f328"
+  },
+  "producer": {
+    "name": "lawc ask",
+    "version": "0.0.1"
+  },
+  "schema": "law.inspection-bundle/0.1",
+  "snapshot": {
+    "artifactHash": "sha256:3ce3dca9236146f311c030a431b4cdcb93bbc12d2a7e5b98123bbc574b89951c",
+    "file": "request.json",
+    "pinnedBy": "manifest",
+    "pointer": "/ir",
+    "theoryHash": "sha256:8a69e9ad8320d428a783c2a2e40bb0de53eb469ff99427bad732eaa21d0b749c"
+  },
+  "sources": [
+    {
+      "sha256": "sha256:2b4c5f35f957f69e385d76b4081badd0158a853585d7c7ea7d484860a77bd809",
+      "uri": "./package.law"
+    }
+  ]
+}
