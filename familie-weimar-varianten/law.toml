@@ -1,0 +1,34 @@
+# Variationen der Familie Vogt (Kapitel 2–4 und 8 des Buches): je ein Fakt geändert gegenüber Familie2025.
+[package]
+name = "examples.de.wohngeld.familie_weimar_varianten"
+version = "0.1.0"
+language = "0.2"
+namespace = "urn:law:examples:de:wohngeld:familie-weimar-varianten"
+
+[dependencies]
+"de.tax.income_for_wohngeld" = "0.1.0"
+"de.social.wohngeld_verordnung" = "0.1.0"
+"de.social.wohngeld" = "0.1.0"
+
+[[cases]]
+name = "VMiete850"
+path = "cases/miete-850.lawcase"
+
+[[cases]]
+name = "VSteuer"
+path = "cases/einkommensteuer.lawcase"
+
+[[cases]]
+name = "VWerbung2000"
+path = "cases/werbungskosten-2000.lawcase"
+
+[[cases]]
+name = "VOhneMittelpunkt"
+path = "cases/ohne-lebensmittelpunkt.lawcase"
+
+[[cases]]
+name = "V20270101"
+path = "cases/2027-01-01.lawcase"
+
+[authoring]
+local_imports = "explicit"
