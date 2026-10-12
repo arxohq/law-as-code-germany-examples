@@ -47,5 +47,6 @@ Saved questions: `einkommen-1710`, `miete-777-80`, `wohngeld-485`, `wohngeld-463
 | 6 | `FamilieOhneWuerdigung` / `wohngeld-485`, `anspruch-485` |
 | 7 | `AlleinGrundsicherung` / `kein-anspruch-alle-ausgeschlossen`, `wohngeld-485` |
 
-Chapters 1, 5, 7 and 8 also run scenarios of the canon itself (`tests/*.lawtest`); they are part of the
-published canon `de.social.wohngeld` in the registry.
+Chapters 1, 5, 7 and 8 also run scenarios of the canon itself (`tests/*.lawtest`). Their sources are published
+with the canon in the registry for reading; running them needs the pinned legal texts, which the registry does not
+republish, so in this edition they run from a checkout of the Arxo repository (Appendix D of the book).
