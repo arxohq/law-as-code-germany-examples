@@ -1,0 +1,6 @@
+language "law.core" version "0.2";
+package examples.de.wohngeld.familie_weimar_varianten version "0.1.0";
+namespace "urn:law:examples:de:wohngeld:familie-weimar-varianten";
+import de.tax.income_for_wohngeld version "0.1.0";
+import de.social.wohngeld_verordnung version "0.1.0";
+import de.social.wohngeld version "0.1.0";

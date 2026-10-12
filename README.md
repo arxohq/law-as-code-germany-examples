@@ -1,6 +1,6 @@
-# Law as Code in Practice: German Housing Benefit (Wohngeld) — case package
+# Law as Code in Practice: German Housing Benefit (Wohngeld) — case packages
 
-The case package of the book *Law as Code in Practice: German Housing Benefit (Wohngeld)*
+The case packages of the book *Law as Code in Practice: German Housing Benefit (Wohngeld)*
 (Law as Code by Country · Volume 2). The folder holds four fictional files over the same model — the facts,
 the legal date and saved questions (`queries/`) of the Vogt family in Weimar, whose numbers are those of the
 BMWSB worked example *Rechenbeispiel 7* (as of 1 January 2025). The rules are not copied here: `law.lock` pins
@@ -36,11 +36,31 @@ repository and is not needed to run the example.
 Saved questions: `einkommen-1710`, `miete-777-80`, `wohngeld-485`, `wohngeld-463`, `anspruch-485`,
 `kein-anspruch-alle-ausgeschlossen`.
 
+## One fact changed: `familie-weimar-varianten/`
+
+The variations of Chapters 2, 3, 4 and 8 — the Vogts' case with one fact changed — are five cases of their own:
+
+| Case (`--case`) | Change against `Familie2025` | Answer |
+|---|---|---|
+| `VMiete850` | rent €850 instead of €580 | M €998.20, Wohngeld €644 |
+| `VSteuer` | income tax also expected (§ 16, three deductions) | Y €1,496.25, Wohngeld €542 |
+| `VWerbung2000` | proven work expenses €2,000 instead of the flat rate | Y €1,658.6666666667, Wohngeld €499 |
+| `VOhneMittelpunkt` | the flat is not established as the centre of Markus's life | 3 members, Y €1,600.00, M €750.20, Wohngeld €351 |
+| `V20270101` | legal date 1 January 2027 | no amount: `MISSING_PARAMETER_VALUE` |
+
+Its questions (`queries/collect-*.json`) collect the value instead of testing one:
+
+```sh
+cd examples/familie-weimar-varianten
+law install --registry arxo=../../registry
+law ask . --case VMiete850 --query-json queries/collect-w.json --out "$(mktemp -d)"
+```
+
 ## Chapters and questions
 
 | Chapter | Case and question |
 |---|---|
-| 0, 3 | `Familie2025` with every question |
+| 0, 3 | `Familie2025` with every question; the table of Chapter 3 §5 — `familie-weimar-varianten` |
 | 1 | `Familie20241231` / `wohngeld-463` and `Familie2025` / `wohngeld-485` |
 | 2 | `Familie2025` / `einkommen-1710`, `miete-777-80` |
 | 4, 9 | `Familie2025` / `wohngeld-485` (the proof carries z4 and the rows of Anlage 2) |

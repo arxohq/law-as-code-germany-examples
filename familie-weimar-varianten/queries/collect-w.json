@@ -1,0 +1,38 @@
+{
+ "queryId": "collect-w",
+ "kind": "collect",
+ "comprehension": {
+  "kind": "comprehension",
+  "variable": {
+   "id": "v0",
+   "type": {
+    "name": "urn:law:std#Money"
+   }
+  },
+  "binders": [],
+  "distinct": true,
+  "element": {
+   "kind": "var",
+   "var": "v0"
+  },
+  "generator": {
+   "kind": "status",
+   "status": "established",
+   "formula": {
+    "kind": "literal",
+    "polarity": "positive",
+    "predicate": "urn:de:social:clir:wohngeld#wohngeld_monatlich",
+    "args": [
+     {
+      "kind": "entity_ref",
+      "id": "urn:de:example:wohngeld:familie-weimar:haushalt"
+     },
+     {
+      "kind": "var",
+      "var": "v0"
+     }
+    ]
+   }
+  }
+ }
+}

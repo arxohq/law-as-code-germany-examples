@@ -1,0 +1,57 @@
+language "law.core" version "0.2";
+package examples.de.wohngeld.familie_weimar_varianten version "0.1.0";
+namespace "urn:law:examples:de:wohngeld:familie-weimar-varianten";
+
+// BMWSB «Beispiele für die Berechnung des Wohngelds», Stand 1. Januar 2025, Rechenbeispiel 7:
+// Ehepaar mit zwei Kindern, Weimar (Mietenstufe III), брутто 2 240 € в месяц (× 12), Bruttokaltmiete 580 €.
+// Возраст детей в PDF не указан (10 и 6 лет — факт дела, на сумму не влияет). Орган злоупотребления не установил.
+case VOhneMittelpunkt {
+    context {
+        legal_time @2025-01-01;
+        knowledge_time @2026-09-15T09:00:00Z;
+        decision_time @2026-09-15T09:00:00Z;
+        timezone "Europe/Berlin";
+    }
+
+    assert "antrag": de.social.wohngeld::wohngeldantrag(entity_ref("urn:de:example:wohngeld:familie-weimar:haushalt"), entity_ref("urn:de:example:wohngeld:familie-weimar:ehefrau"), de.social.wohngeld::MIETZUSCHUSS) { origin case_input; }
+    assert "grundlage": de.social.wohngeld::nutzungsgrundlage(entity_ref("urn:de:example:wohngeld:familie-weimar:haushalt"), entity_ref("urn:de:example:wohngeld:familie-weimar:ehefrau"), de.social.wohngeld::MIETVERHAELTNIS) { origin case_input; }
+    assert "wohnort": de.social.wohngeld::wohnort(entity_ref("urn:de:example:wohngeld:familie-weimar:haushalt"), "Thüringen", "Weimar, Stadt") { origin case_input; }
+    assert "mv": de.social.wohngeld::mietverhaeltnis_des_haushalts(entity_ref("urn:de:example:wohngeld:familie-weimar:haushalt"), entity_ref("urn:de:example:wohngeld:familie-weimar:mietverhaeltnis")) { origin case_input; }
+    assert "entgelt": de.social.wohngeld::vereinbartes_entgelt(entity_ref("urn:de:example:wohngeld:familie-weimar:mietverhaeltnis"), 580.00 EUR) { origin case_input; }
+    assert "bafoeg": de.social.wohngeld::ausbildungsfoerderung_20_abs2(entity_ref("urn:de:example:wohngeld:familie-weimar:haushalt"), de.social.wohngeld::NEIN, de.social.wohngeld::NEIN) { origin case_input; }
+    assert "miete-vollstaendig": de.social.wohngeld::angaben_zur_miete_vollstaendig(entity_ref("urn:de:example:wohngeld:familie-weimar:mietverhaeltnis")) { origin case_input; }
+    assert "freibetraege-vollstaendig": de.social.wohngeld::angaben_freibetraege_vollstaendig(entity_ref("urn:de:example:wohngeld:familie-weimar:haushalt")) { origin case_input; }
+    assert "behoerde-21-nr3": not de.social.wohngeld::missbraeuchliche_inanspruchnahme(entity_ref("urn:de:example:wohngeld:familie-weimar:haushalt")) { origin adjudicated; }
+    assert "ehefrau-lebensmittelpunkt": de.social.wohngeld::lebensmittelpunkt_im_wohnraum(entity_ref("urn:de:example:wohngeld:familie-weimar:haushalt"), entity_ref("urn:de:example:wohngeld:familie-weimar:ehefrau")) { origin case_input; }
+    assert "ehefrau-aufenthalt": de.social.wohngeld::aufenthaltsrechtlicher_status(entity_ref("urn:de:example:wohngeld:familie-weimar:ehefrau"), de.social.wohngeld::KEIN_AUSLAENDER) { origin case_input; }
+    assert "ehefrau-leistung7": de.social.wohngeld::leistungsbezug_7(entity_ref("urn:de:example:wohngeld:familie-weimar:ehefrau"), de.social.wohngeld::KEINE, de.social.wohngeld::NEIN, de.social.wohngeld::NEIN, de.social.wohngeld::NEIN, de.social.wohngeld::NEIN) { origin case_input; }
+    assert "ehefrau-abzug16": de.social.wohngeld::abzugsmerkmale_16(entity_ref("urn:de:example:wohngeld:familie-weimar:ehefrau"), de.social.wohngeld::NEIN, de.social.wohngeld::JA, de.social.wohngeld::JA) { origin case_input; }
+    assert "ehefrau-einkommen-vollstaendig": de.social.wohngeld::einkommensangaben_vollstaendig(entity_ref("urn:de:example:wohngeld:familie-weimar:ehefrau")) { origin case_input; }
+    assert "ehefrau-lohn": de.tax.income_for_wohngeld::arbeitslohn_in_geld(entity_ref("urn:de:example:wohngeld:familie-weimar:ehefrau"), 26880.00 EUR) { origin case_input; }
+    assert "ehefrau-werbungskosten": de.tax.income_for_wohngeld::nachgewiesene_werbungskosten_arbeit(entity_ref("urn:de:example:wohngeld:familie-weimar:ehefrau"), 0.00 EUR) { origin case_input; }
+    assert "ehemann-aufenthalt": de.social.wohngeld::aufenthaltsrechtlicher_status(entity_ref("urn:de:example:wohngeld:familie-weimar:ehemann"), de.social.wohngeld::KEIN_AUSLAENDER) { origin case_input; }
+    assert "ehemann-leistung7": de.social.wohngeld::leistungsbezug_7(entity_ref("urn:de:example:wohngeld:familie-weimar:ehemann"), de.social.wohngeld::KEINE, de.social.wohngeld::NEIN, de.social.wohngeld::NEIN, de.social.wohngeld::NEIN, de.social.wohngeld::NEIN) { origin case_input; }
+    assert "ehemann-beziehung": de.social.wohngeld::beziehung(entity_ref("urn:de:example:wohngeld:familie-weimar:ehemann"), entity_ref("urn:de:example:wohngeld:familie-weimar:ehefrau"), de.social.wohngeld::EHEGATTE_NICHT_DAUERND_GETRENNT) { origin case_input; }
+    assert "ehemann-abzug16": de.social.wohngeld::abzugsmerkmale_16(entity_ref("urn:de:example:wohngeld:familie-weimar:ehemann"), de.social.wohngeld::NEIN, de.social.wohngeld::NEIN, de.social.wohngeld::NEIN) { origin case_input; }
+    assert "ehemann-einkommen-vollstaendig": de.social.wohngeld::einkommensangaben_vollstaendig(entity_ref("urn:de:example:wohngeld:familie-weimar:ehemann")) { origin case_input; }
+    assert "kind1-lebensmittelpunkt": de.social.wohngeld::lebensmittelpunkt_im_wohnraum(entity_ref("urn:de:example:wohngeld:familie-weimar:haushalt"), entity_ref("urn:de:example:wohngeld:familie-weimar:kind1")) { origin case_input; }
+    assert "kind1-aufenthalt": de.social.wohngeld::aufenthaltsrechtlicher_status(entity_ref("urn:de:example:wohngeld:familie-weimar:kind1"), de.social.wohngeld::KEIN_AUSLAENDER) { origin case_input; }
+    assert "kind1-leistung7": de.social.wohngeld::leistungsbezug_7(entity_ref("urn:de:example:wohngeld:familie-weimar:kind1"), de.social.wohngeld::KEINE, de.social.wohngeld::NEIN, de.social.wohngeld::NEIN, de.social.wohngeld::NEIN, de.social.wohngeld::NEIN) { origin case_input; }
+    assert "kind1-beziehung": de.social.wohngeld::beziehung(entity_ref("urn:de:example:wohngeld:familie-weimar:kind1"), entity_ref("urn:de:example:wohngeld:familie-weimar:ehefrau"), de.social.wohngeld::VERWANDT_ODER_VERSCHWAEGERT) { origin case_input; }
+    assert "kind1-abzug16": de.social.wohngeld::abzugsmerkmale_16(entity_ref("urn:de:example:wohngeld:familie-weimar:kind1"), de.social.wohngeld::NEIN, de.social.wohngeld::NEIN, de.social.wohngeld::NEIN) { origin case_input; }
+    assert "kind1-einkommen-vollstaendig": de.social.wohngeld::einkommensangaben_vollstaendig(entity_ref("urn:de:example:wohngeld:familie-weimar:kind1")) { origin case_input; }
+    assert "kind1-alter": de.social.wohngeld::alter_in_vollendeten_jahren(entity_ref("urn:de:example:wohngeld:familie-weimar:kind1"), 10) { origin case_input; }
+    assert "kind1-kind-von-ehefrau": de.social.wohngeld::kind_von(entity_ref("urn:de:example:wohngeld:familie-weimar:kind1"), entity_ref("urn:de:example:wohngeld:familie-weimar:ehefrau")) { origin case_input; }
+    assert "kind1-kind-von-ehemann": de.social.wohngeld::kind_von(entity_ref("urn:de:example:wohngeld:familie-weimar:kind1"), entity_ref("urn:de:example:wohngeld:familie-weimar:ehemann")) { origin case_input; }
+    assert "kind1-kindergeld": de.social.wohngeld::kindergeld_gewaehrt(entity_ref("urn:de:example:wohngeld:familie-weimar:kind1")) { origin case_input; }
+    assert "kind2-lebensmittelpunkt": de.social.wohngeld::lebensmittelpunkt_im_wohnraum(entity_ref("urn:de:example:wohngeld:familie-weimar:haushalt"), entity_ref("urn:de:example:wohngeld:familie-weimar:kind2")) { origin case_input; }
+    assert "kind2-aufenthalt": de.social.wohngeld::aufenthaltsrechtlicher_status(entity_ref("urn:de:example:wohngeld:familie-weimar:kind2"), de.social.wohngeld::KEIN_AUSLAENDER) { origin case_input; }
+    assert "kind2-leistung7": de.social.wohngeld::leistungsbezug_7(entity_ref("urn:de:example:wohngeld:familie-weimar:kind2"), de.social.wohngeld::KEINE, de.social.wohngeld::NEIN, de.social.wohngeld::NEIN, de.social.wohngeld::NEIN, de.social.wohngeld::NEIN) { origin case_input; }
+    assert "kind2-beziehung": de.social.wohngeld::beziehung(entity_ref("urn:de:example:wohngeld:familie-weimar:kind2"), entity_ref("urn:de:example:wohngeld:familie-weimar:ehefrau"), de.social.wohngeld::VERWANDT_ODER_VERSCHWAEGERT) { origin case_input; }
+    assert "kind2-abzug16": de.social.wohngeld::abzugsmerkmale_16(entity_ref("urn:de:example:wohngeld:familie-weimar:kind2"), de.social.wohngeld::NEIN, de.social.wohngeld::NEIN, de.social.wohngeld::NEIN) { origin case_input; }
+    assert "kind2-einkommen-vollstaendig": de.social.wohngeld::einkommensangaben_vollstaendig(entity_ref("urn:de:example:wohngeld:familie-weimar:kind2")) { origin case_input; }
+    assert "kind2-alter": de.social.wohngeld::alter_in_vollendeten_jahren(entity_ref("urn:de:example:wohngeld:familie-weimar:kind2"), 6) { origin case_input; }
+    assert "kind2-kind-von-ehefrau": de.social.wohngeld::kind_von(entity_ref("urn:de:example:wohngeld:familie-weimar:kind2"), entity_ref("urn:de:example:wohngeld:familie-weimar:ehefrau")) { origin case_input; }
+    assert "kind2-kind-von-ehemann": de.social.wohngeld::kind_von(entity_ref("urn:de:example:wohngeld:familie-weimar:kind2"), entity_ref("urn:de:example:wohngeld:familie-weimar:ehemann")) { origin case_input; }
+    assert "kind2-kindergeld": de.social.wohngeld::kindergeld_gewaehrt(entity_ref("urn:de:example:wohngeld:familie-weimar:kind2")) { origin case_input; }
+}
