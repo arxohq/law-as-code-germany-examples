@@ -11,13 +11,13 @@ version and hash, and `law install` fetches them from the canon repository `arxo
 > claim legal accuracy or completeness, they are not an implementation by or for any German authority, and their
 > answers are not legal advice.
 
-**Status: private staging.** This repository and `arxohq/arxo-wohngeld` become public with the book.
+**Public book companion.** The models are in [arxo-wohngeld](https://github.com/arxohq/arxo-wohngeld); the published Node.js distribution is [@arxo/canon-de-wohngeld](https://www.npmjs.com/package/@arxo/canon-de-wohngeld).
 
 ## Run the example
 
 ```sh
-git clone git@github.com:arxohq/arxo-wohngeld.git
-git clone git@github.com:arxohq/law-as-code-germany-examples.git examples
+git clone https://github.com/arxohq/arxo-wohngeld.git
+git clone https://github.com/arxohq/law-as-code-germany-examples.git examples
 cd examples/familie-weimar
 law install --registry arxo=../../arxo-wohngeld/registry
 law ask . --case Familie2025 --query-json queries/wohngeld-485.json --out "$(mktemp -d)"
@@ -109,3 +109,43 @@ shasum -a 256 runs/familie-2025/result.json /tmp/familie-2025/result.json
 
 The answers were recorded on 12 October 2026 with `law` 0.2.1 built from the Arxo repository at commit
 `ba9c096f1d`; on that day both replays were byte for byte identical to the saved `result.json`.
+
+
+## Use the published Node.js package
+
+The published `@arxo/canon-de-wohngeld@0.1.0` package embeds these nine case inputs captured from this repository at `9575dcba842d1b7da310300e2bcfbe3f1cb87ff9`. The three models come separately from `arxo-wohngeld@d1887e87da88682930460b10deb9f52870ef5d54`. Both repositories provide the public source inputs and reproduction instructions.
+
+In a new directory:
+
+```sh
+npm init -y
+npm install --ignore-scripts @arxo/canon-de-wohngeld@0.1.0 @arxo/law@0.4.2
+```
+
+Save this as `example.mjs` and run `node example.mjs` (Node.js 20+, ESM):
+
+```js
+import { open } from '@arxo/law';
+import { loadModel } from '@arxo/canon-de-wohngeld/wohngeld';
+import { household, caseNames, getCaseInput } from '@arxo/canon-de-wohngeld/examples/familie-weimar';
+
+const model = await loadModel();
+const wohngeld = await open(model.spec, {
+  offline: true,
+  local: { packages: { [model.spec]: model.package } },
+});
+const input = getCaseInput('Familie2025');
+console.log(caseNames);
+const amount = await wohngeld.collect('wohngeld_monatlich', [household, '?amount'], input);
+console.log(amount.evaluationStatus, amount.value); // COMPUTED, Money 485 EUR
+const claim = await wohngeld.truth('wohngeldanspruch', [household, '485 EUR'], input);
+console.log(claim.evaluationStatus, claim.truthStatus); // COMPUTED, TRUE_ONLY
+```
+
+Use the case/chapter mapping above with the same typed case names. `getCaseInput` returns a fresh copy of canonical assertions, context and options. It preserves the negative `missbraeuchliche_inanspruchnahme` assertion's `adjudicated` origin. `FamilieOhneWuerdigung` keeps that judgment absent: amount €485, claim `NEITHER / REQUIRES_JUDGMENT`.
+
+`V20270101` yields an empty amount and `MISSING_PARAMETER_VALUE` issues while SDK 0.4.2 reports `evaluationStatus: COMPUTED`. Do not substitute zero. `VOhneMittelpunkt` records this model's three-member boundary, not a general legal presumption that missing facts are false. Money and Decimal remain strings. The SDK proof attributes retain A3 selections and function source anchors even though the top-level `sources` array is empty.
+
+[Complete Node.js guide, depth and evidence](https://github.com/arxohq/arxo-wohngeld/tree/main/npm#readme) accompanies the published package. The CLI instructions and saved historical answers above remain available for reproduction.
+
+The published package passed addressed delivery checks. Full subject acceptance remains separate: `releaseVerified: false`, corpus `not_checked`. See the model repository’s NOTICE and publication-boundary inventory for publisher-text attribution and the maintainer’s distribution decision.
